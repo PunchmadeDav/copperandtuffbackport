@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "copperandtuffbackport:block/tuff_brick_slab"
+    },
+    "type=double": {
+      "model": "copperandtuffbackport:block/tuff_bricks"
+    },
+    "type=top": {
+      "model": "copperandtuffbackport:block/tuff_brick_slab_top"
+    }
+  }
+}
