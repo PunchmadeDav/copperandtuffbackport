@@ -7,9 +7,9 @@ import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.WallBlock;
 import net.minecraft.item.BlockItem;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import xanthian.copperandtuffbackport.Initialise;
 import xanthian.copperandtuffbackport.util.ModSounds;
 
@@ -19,16 +19,19 @@ public class ModTuffBlocks {
 
     public static final Block TUFF_SLAB = new SlabBlock(FabricBlockSettings.copy(TUFF));
     public static final Block TUFF_STAIRS = new StairsBlock(TUFF.getDefaultState(), FabricBlockSettings.copy(TUFF));
-    public static final Block TUFF_WALL = new WallBlock(FabricBlockSettings.copy(TUFF).solid());
+    public static final Block TUFF_WALL = new WallBlock(FabricBlockSettings.copy(TUFF));
+
     public static final Block POLISHED_TUFF = new Block(FabricBlockSettings.copy(TUFF).sounds(ModSounds.POLISHED_TUFF));
     public static final Block POLISHED_TUFF_SLAB = new SlabBlock(FabricBlockSettings.copy(POLISHED_TUFF));
     public static final Block POLISHED_TUFF_STAIRS = new StairsBlock(POLISHED_TUFF.getDefaultState(), FabricBlockSettings.copy(POLISHED_TUFF));
-    public static final Block POLISHED_TUFF_WALL = new WallBlock(FabricBlockSettings.copy(POLISHED_TUFF).solid());
+    public static final Block POLISHED_TUFF_WALL = new WallBlock(FabricBlockSettings.copy(POLISHED_TUFF));
+
     public static final Block CHISELED_TUFF = new Block(FabricBlockSettings.copy(TUFF));
+
     public static final Block TUFF_BRICKS = new Block(FabricBlockSettings.copy(TUFF).sounds(ModSounds.TUFF_BRICKS));
     public static final Block TUFF_BRICK_SLAB = new SlabBlock(FabricBlockSettings.copy(TUFF_BRICKS));
     public static final Block TUFF_BRICK_STAIRS = new StairsBlock(TUFF_BRICKS.getDefaultState(), FabricBlockSettings.copy(TUFF_BRICKS));
-    public static final Block TUFF_BRICK_WALL = new WallBlock(FabricBlockSettings.copy(TUFF_BRICKS).solid());
+    public static final Block TUFF_BRICK_WALL = new WallBlock(FabricBlockSettings.copy(TUFF_BRICKS));
     public static final Block CHISELED_TUFF_BRICKS = new Block(FabricBlockSettings.copy(TUFF_BRICKS));
 
     public static void registerBlocks() {
@@ -49,7 +52,7 @@ public class ModTuffBlocks {
 
     private static void register(String name, Block block) {
         Identifier identifier = new Identifier(Initialise.MOD_ID, name);
-        Registry.register(Registries.BLOCK, identifier, block);
-        Registry.register(Registries.ITEM, identifier, new BlockItem(block, new FabricItemSettings()));
+        Registry.register(Registry.BLOCK, identifier, block);
+        Registry.register(Registry.ITEM, identifier, new BlockItem(block, new FabricItemSettings().group(ItemGroup.BUILDING_BLOCKS)));
     }
 }

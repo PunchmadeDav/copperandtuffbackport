@@ -41,14 +41,15 @@ public class BulbBlock extends Block {
 
     public void update(BlockState state, ServerWorld world, BlockPos pos) {
         boolean bl = world.isReceivingRedstonePower(pos);
-        if (bl == state.get(POWERED)) {
-            return;
+        if (bl != state.get(POWERED)) {
+            BlockState blockState = state;
+            if (!(Boolean) state.get(POWERED)) {
+                blockState = state.cycle(LIT);
+                world.playSound(null, pos, blockState.get(LIT) ? ModSounds.BLOCK_COPPER_BULB_TURN_ON : ModSounds.BLOCK_COPPER_BULB_TURN_OFF, SoundCategory.BLOCKS, 2F, 1F);
+            }
+
+            world.setBlockState(pos, blockState.with(POWERED, bl), 3);
         }
-        BlockState blockState = state;
-        if (!state.get(POWERED).booleanValue()) {
-            world.playSound(null, pos, (blockState = blockState.cycle(LIT)).get(LIT) ? ModSounds.BLOCK_COPPER_BULB_TURN_ON : ModSounds.BLOCK_COPPER_BULB_TURN_OFF, SoundCategory.BLOCKS);
-        }
-        world.setBlockState(pos, blockState.with(POWERED, bl), 3);
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {

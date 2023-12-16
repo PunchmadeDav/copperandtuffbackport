@@ -13,6 +13,9 @@ group = project.maven_group
 repositories {
 
 }
+loom {
+    accessWidenerPath = file("src/main/resources/copperandtuffbackport.accesswidener")
+}
 configurations.all {
     resolutionStrategy {
         force("net.fabricmc:fabric-loader:$loader_version")

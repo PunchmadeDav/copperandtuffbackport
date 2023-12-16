@@ -20,10 +20,11 @@
       "xanthian.copperandtuffbackport.ClientInit"
     ]
   },
+    "accessWidener": "copperandtuffbackport.accesswidener",
   "depends": {
-    "fabricloader": ">=0.15.0",
+    "fabricloader": ">=0.14.20",
     "fabric": "*",
-    "minecraft": ">=1.20 <1.20.2",
+    "minecraft": "1.19.2",
     "java": ">=17"
   }
 }
