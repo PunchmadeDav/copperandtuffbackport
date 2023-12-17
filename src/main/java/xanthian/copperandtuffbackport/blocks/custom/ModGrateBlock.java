@@ -15,14 +15,14 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
-public class GrateBlock extends TransparentBlock implements Waterloggable {
+public class ModGrateBlock extends TransparentBlock implements Waterloggable {
     public static final BooleanProperty WATERLOGGED;
 
     static {
         WATERLOGGED = Properties.WATERLOGGED;
     }
 
-    public GrateBlock(Settings settings) {
+    public ModGrateBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false));
     }

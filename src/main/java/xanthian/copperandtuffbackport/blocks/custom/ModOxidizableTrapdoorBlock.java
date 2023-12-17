@@ -8,13 +8,13 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 
-public class OxidizableTrapdoorBlock extends TrapdoorBlock implements Oxidizable {
+public class ModOxidizableTrapdoorBlock extends TrapdoorBlock implements Oxidizable {
 
     private final OxidationLevel oxidationLevel;
 
 
-    public OxidizableTrapdoorBlock(BlockSetType type, OxidationLevel oxidationLevel, Settings settings) {
-        super(settings, type);
+    public ModOxidizableTrapdoorBlock(BlockSetType type, OxidationLevel oxidationLevel, Settings settings) {
+        super(type, settings);
         this.oxidationLevel = oxidationLevel;
     }
 

@@ -6,11 +6,11 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 
-public class OxidizableBulbBlock extends BulbBlock implements Oxidizable {
+public class ModOxidizableGrateBlock extends ModGrateBlock implements Oxidizable {
 
     private final OxidationLevel oxidationLevel;
 
-    public OxidizableBulbBlock(OxidationLevel oxidationLevel, Settings settings) {
+    public ModOxidizableGrateBlock(OxidationLevel oxidationLevel, Settings settings) {
         super(settings);
         this.oxidationLevel = oxidationLevel;
     }

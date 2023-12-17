@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import xanthian.copperandtuffbackport.util.ModSounds;
 
-public class BulbBlock extends Block {
+public class ModBulbBlock extends Block {
     public static final BooleanProperty POWERED;
     public static final BooleanProperty LIT;
 
@@ -20,7 +20,7 @@ public class BulbBlock extends Block {
         LIT = Properties.LIT;
     }
 
-    public BulbBlock(Settings settings) {
+    public ModBulbBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.getDefaultState().with(LIT, false).with(POWERED, false));
     }
