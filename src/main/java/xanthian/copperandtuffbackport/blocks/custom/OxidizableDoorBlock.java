@@ -1,9 +1,6 @@
 package xanthian.copperandtuffbackport.blocks.custom;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.DoorBlock;
-import net.minecraft.block.Oxidizable;
+import net.minecraft.block.*;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -12,16 +9,18 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.event.GameEvent;
 import xanthian.copperandtuffbackport.util.ModSounds;
 
 import java.util.Random;
 
 public class OxidizableDoorBlock extends DoorBlock implements Oxidizable {
-    private final OxidationLevel oxidationLevel;
+    private final OxidizationLevel oxidationLevel;
 
-    public OxidizableDoorBlock(Oxidizable.OxidationLevel oxidationLevel, Settings settings) {
+    public OxidizableDoorBlock(Oxidizable.OxidizationLevel oxidationLevel, Settings settings) {
         super(settings);
         this.oxidationLevel = oxidationLevel;
     }
@@ -42,7 +41,17 @@ public class OxidizableDoorBlock extends DoorBlock implements Oxidizable {
         return ActionResult.success(world.isClient);
     }
 
-    public OxidationLevel getDegradationLevel() {
+    @Override
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+        DoubleBlockHalf doubleBlockHalf = state.get(HALF);
+        if (direction.getAxis() == Direction.Axis.Y && doubleBlockHalf == DoubleBlockHalf.LOWER == (direction == Direction.UP)) {
+            return neighborState.getBlock() instanceof DoorBlock && neighborState.get(HALF) != doubleBlockHalf ? neighborState.with(HALF, doubleBlockHalf) : Blocks.AIR.getDefaultState();
+        } else {
+            return doubleBlockHalf == DoubleBlockHalf.LOWER && direction == Direction.DOWN && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+        }
+    }
+
+    public OxidizationLevel getDegradationLevel() {
         return this.oxidationLevel;
     }
 }

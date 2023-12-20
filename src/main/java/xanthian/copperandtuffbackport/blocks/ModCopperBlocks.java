@@ -16,49 +16,49 @@ import static net.minecraft.block.Blocks.*;
 
 public class ModCopperBlocks {
 
-    public static final Block CHISELED_COPPER = new OxidizableBlock(Oxidizable.OxidationLevel.UNAFFECTED, FabricBlockSettings.copy(COPPER_BLOCK));
-    public static final Block EXPOSED_CHISELED_COPPER = new OxidizableBlock(Oxidizable.OxidationLevel.EXPOSED, FabricBlockSettings.copy(EXPOSED_COPPER));
-    public static final Block OXIDIZED_CHISELED_COPPER = new OxidizableBlock(Oxidizable.OxidationLevel.OXIDIZED, FabricBlockSettings.copy(OXIDIZED_COPPER));
-    public static final Block WEATHERED_CHISELED_COPPER = new OxidizableBlock(Oxidizable.OxidationLevel.WEATHERED, FabricBlockSettings.copy(WEATHERED_COPPER));
+    public static final Block CHISELED_COPPER = new OxidizableBlock(Oxidizable.OxidizationLevel.UNAFFECTED, FabricBlockSettings.copy(COPPER_BLOCK));
+    public static final Block EXPOSED_CHISELED_COPPER = new OxidizableBlock(Oxidizable.OxidizationLevel.EXPOSED, FabricBlockSettings.copy(EXPOSED_COPPER));
+    public static final Block OXIDIZED_CHISELED_COPPER = new OxidizableBlock(Oxidizable.OxidizationLevel.OXIDIZED, FabricBlockSettings.copy(OXIDIZED_COPPER));
+    public static final Block WEATHERED_CHISELED_COPPER = new OxidizableBlock(Oxidizable.OxidizationLevel.WEATHERED, FabricBlockSettings.copy(WEATHERED_COPPER));
     public static final Block WAXED_CHISELED_COPPER = new Block(FabricBlockSettings.copy(CHISELED_COPPER));
     public static final Block WAXED_EXPOSED_CHISELED_COPPER = new Block(FabricBlockSettings.copy(EXPOSED_CHISELED_COPPER));
     public static final Block WAXED_OXIDIZED_CHISELED_COPPER = new Block(FabricBlockSettings.copy(OXIDIZED_CHISELED_COPPER));
     public static final Block WAXED_WEATHERED_CHISELED_COPPER = new Block(FabricBlockSettings.copy(WEATHERED_CHISELED_COPPER));
 
-    public static final Block COPPER_DOOR = new OxidizableDoorBlock(Oxidizable.OxidationLevel.UNAFFECTED, FabricBlockSettings.of(Material.METAL).mapColor(COPPER_BLOCK.getDefaultMapColor()).strength(3.0F, 6.0F).nonOpaque().requiresTool().sounds(BlockSoundGroup.COPPER));
-    public static final Block WAXED_COPPER_DOOR = new DoorBlock(FabricBlockSettings.copy(COPPER_DOOR).sounds(BlockSoundGroup.COPPER));
-    public static final Block EXPOSED_COPPER_DOOR = new OxidizableDoorBlock(Oxidizable.OxidationLevel.EXPOSED, FabricBlockSettings.copy(COPPER_DOOR).mapColor(EXPOSED_COPPER.getDefaultMapColor()).sounds(BlockSoundGroup.COPPER));
-    public static final Block WAXED_EXPOSED_COPPER_DOOR = new DoorBlock(FabricBlockSettings.copy(EXPOSED_COPPER_DOOR).sounds(BlockSoundGroup.COPPER));
-    public static final Block OXIDIZED_COPPER_DOOR = new OxidizableDoorBlock(Oxidizable.OxidationLevel.OXIDIZED, FabricBlockSettings.copy(COPPER_DOOR).mapColor(OXIDIZED_COPPER.getDefaultMapColor()).sounds(BlockSoundGroup.COPPER));
-    public static final Block WAXED_OXIDIZED_COPPER_DOOR = new DoorBlock(FabricBlockSettings.copy(OXIDIZED_COPPER_DOOR).sounds(BlockSoundGroup.COPPER));
-    public static final Block WEATHERED_COPPER_DOOR = new OxidizableDoorBlock(Oxidizable.OxidationLevel.WEATHERED, FabricBlockSettings.copy(COPPER_DOOR).mapColor(WEATHERED_COPPER.getDefaultMapColor()).sounds(BlockSoundGroup.COPPER));
-    public static final Block WAXED_WEATHERED_COPPER_DOOR = new DoorBlock(FabricBlockSettings.copy(WEATHERED_COPPER_DOOR).sounds(BlockSoundGroup.COPPER));
+    public static final Block COPPER_DOOR = new OxidizableDoorBlock(Oxidizable.OxidizationLevel.UNAFFECTED, FabricBlockSettings.of(Material.METAL).mapColor(COPPER_BLOCK.getDefaultMapColor()).strength(3.0F, 6.0F).nonOpaque().requiresTool().sounds(BlockSoundGroup.COPPER));
+    public static final Block WAXED_COPPER_DOOR = new ModDoorBlock(FabricBlockSettings.copy(COPPER_DOOR).sounds(BlockSoundGroup.COPPER));
+    public static final Block EXPOSED_COPPER_DOOR = new OxidizableDoorBlock(Oxidizable.OxidizationLevel.EXPOSED, FabricBlockSettings.copy(COPPER_DOOR).mapColor(EXPOSED_COPPER.getDefaultMapColor()).sounds(BlockSoundGroup.COPPER));
+    public static final Block WAXED_EXPOSED_COPPER_DOOR = new ModDoorBlock(FabricBlockSettings.copy(EXPOSED_COPPER_DOOR).sounds(BlockSoundGroup.COPPER));
+    public static final Block OXIDIZED_COPPER_DOOR = new OxidizableDoorBlock(Oxidizable.OxidizationLevel.OXIDIZED, FabricBlockSettings.copy(COPPER_DOOR).mapColor(OXIDIZED_COPPER.getDefaultMapColor()).sounds(BlockSoundGroup.COPPER));
+    public static final Block WAXED_OXIDIZED_COPPER_DOOR = new ModDoorBlock(FabricBlockSettings.copy(OXIDIZED_COPPER_DOOR).sounds(BlockSoundGroup.COPPER));
+    public static final Block WEATHERED_COPPER_DOOR = new OxidizableDoorBlock(Oxidizable.OxidizationLevel.WEATHERED, FabricBlockSettings.copy(COPPER_DOOR).mapColor(WEATHERED_COPPER.getDefaultMapColor()).sounds(BlockSoundGroup.COPPER));
+    public static final Block WAXED_WEATHERED_COPPER_DOOR = new ModDoorBlock(FabricBlockSettings.copy(WEATHERED_COPPER_DOOR).sounds(BlockSoundGroup.COPPER));
 
-    public static final Block COPPER_TRAPDOOR = new OxidizableTrapdoorBlock(Oxidizable.OxidationLevel.UNAFFECTED, FabricBlockSettings.of(Material.METAL).mapColor(COPPER_BLOCK.getDefaultMapColor()).strength(3.0F, 6.0F).requiresTool().nonOpaque().allowsSpawning(Blocks::never).sounds(BlockSoundGroup.COPPER));
-    public static final Block WAXED_COPPER_TRAPDOOR = new TrapdoorBlock(FabricBlockSettings.copy(COPPER_TRAPDOOR).sounds(BlockSoundGroup.COPPER));
-    public static final Block EXPOSED_COPPER_TRAPDOOR = new OxidizableTrapdoorBlock(Oxidizable.OxidationLevel.EXPOSED, FabricBlockSettings.copy(COPPER_TRAPDOOR).mapColor(EXPOSED_COPPER.getDefaultMapColor()).sounds(BlockSoundGroup.COPPER));
-    public static final Block WAXED_EXPOSED_COPPER_TRAPDOOR = new TrapdoorBlock(FabricBlockSettings.copy(EXPOSED_COPPER_TRAPDOOR).sounds(BlockSoundGroup.COPPER));
-    public static final Block OXIDIZED_COPPER_TRAPDOOR = new OxidizableTrapdoorBlock(Oxidizable.OxidationLevel.OXIDIZED, FabricBlockSettings.copy(COPPER_TRAPDOOR).mapColor(OXIDIZED_COPPER.getDefaultMapColor()).sounds(BlockSoundGroup.COPPER));
-    public static final Block WAXED_OXIDIZED_COPPER_TRAPDOOR = new TrapdoorBlock(FabricBlockSettings.copy(OXIDIZED_COPPER_TRAPDOOR).sounds(BlockSoundGroup.COPPER));
-    public static final Block WEATHERED_COPPER_TRAPDOOR = new OxidizableTrapdoorBlock(Oxidizable.OxidationLevel.WEATHERED, FabricBlockSettings.copy(COPPER_TRAPDOOR).mapColor(WEATHERED_COPPER.getDefaultMapColor()).sounds(BlockSoundGroup.COPPER));
-    public static final Block WAXED_WEATHERED_COPPER_TRAPDOOR = new TrapdoorBlock(FabricBlockSettings.copy(WEATHERED_COPPER_TRAPDOOR).sounds(BlockSoundGroup.COPPER));
+    public static final Block COPPER_TRAPDOOR = new OxidizableTrapdoorBlock(Oxidizable.OxidizationLevel.UNAFFECTED, FabricBlockSettings.of(Material.METAL).mapColor(COPPER_BLOCK.getDefaultMapColor()).strength(3.0F, 6.0F).requiresTool().nonOpaque().allowsSpawning(Blocks::never).sounds(BlockSoundGroup.COPPER));
+    public static final Block WAXED_COPPER_TRAPDOOR = new ModTrapdoorBlock(FabricBlockSettings.copy(COPPER_TRAPDOOR).sounds(BlockSoundGroup.COPPER));
+    public static final Block EXPOSED_COPPER_TRAPDOOR = new OxidizableTrapdoorBlock(Oxidizable.OxidizationLevel.EXPOSED, FabricBlockSettings.copy(COPPER_TRAPDOOR).mapColor(EXPOSED_COPPER.getDefaultMapColor()).sounds(BlockSoundGroup.COPPER));
+    public static final Block WAXED_EXPOSED_COPPER_TRAPDOOR = new ModTrapdoorBlock(FabricBlockSettings.copy(EXPOSED_COPPER_TRAPDOOR).sounds(BlockSoundGroup.COPPER));
+    public static final Block OXIDIZED_COPPER_TRAPDOOR = new OxidizableTrapdoorBlock(Oxidizable.OxidizationLevel.OXIDIZED, FabricBlockSettings.copy(COPPER_TRAPDOOR).mapColor(OXIDIZED_COPPER.getDefaultMapColor()).sounds(BlockSoundGroup.COPPER));
+    public static final Block WAXED_OXIDIZED_COPPER_TRAPDOOR = new ModTrapdoorBlock(FabricBlockSettings.copy(OXIDIZED_COPPER_TRAPDOOR).sounds(BlockSoundGroup.COPPER));
+    public static final Block WEATHERED_COPPER_TRAPDOOR = new OxidizableTrapdoorBlock(Oxidizable.OxidizationLevel.WEATHERED, FabricBlockSettings.copy(COPPER_TRAPDOOR).mapColor(WEATHERED_COPPER.getDefaultMapColor()).sounds(BlockSoundGroup.COPPER));
+    public static final Block WAXED_WEATHERED_COPPER_TRAPDOOR = new ModTrapdoorBlock(FabricBlockSettings.copy(WEATHERED_COPPER_TRAPDOOR).sounds(BlockSoundGroup.COPPER));
 
-    public static final Block COPPER_GRATE = new OxidizableGrateBlock(Oxidizable.OxidationLevel.UNAFFECTED, FabricBlockSettings.of(Material.METAL).strength(3.0F, 6.0F).sounds(ModSounds.COPPER_GRATE).mapColor(MapColor.ORANGE).nonOpaque().requiresTool().allowsSpawning(Blocks::never).solidBlock(Blocks::never).suffocates(Blocks::never).blockVision(Blocks::never));
+    public static final Block COPPER_GRATE = new OxidizableGrateBlock(Oxidizable.OxidizationLevel.UNAFFECTED, FabricBlockSettings.of(Material.METAL).strength(3.0F, 6.0F).sounds(ModSounds.COPPER_GRATE).mapColor(MapColor.ORANGE).nonOpaque().requiresTool().allowsSpawning(Blocks::never).solidBlock(Blocks::never).suffocates(Blocks::never).blockVision(Blocks::never));
     public static final Block WAXED_COPPER_GRATE = new GrateBlock(FabricBlockSettings.copy(COPPER_GRATE));
-    public static final Block EXPOSED_COPPER_GRATE = new OxidizableGrateBlock(Oxidizable.OxidationLevel.EXPOSED, FabricBlockSettings.copy(COPPER_GRATE).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY));
+    public static final Block EXPOSED_COPPER_GRATE = new OxidizableGrateBlock(Oxidizable.OxidizationLevel.EXPOSED, FabricBlockSettings.copy(COPPER_GRATE).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY));
     public static final Block WAXED_EXPOSED_COPPER_GRATE = new GrateBlock(FabricBlockSettings.copy(EXPOSED_COPPER_GRATE));
-    public static final Block WEATHERED_COPPER_GRATE = new OxidizableGrateBlock(Oxidizable.OxidationLevel.WEATHERED, FabricBlockSettings.copy(COPPER_GRATE).mapColor(MapColor.DARK_AQUA));
+    public static final Block WEATHERED_COPPER_GRATE = new OxidizableGrateBlock(Oxidizable.OxidizationLevel.WEATHERED, FabricBlockSettings.copy(COPPER_GRATE).mapColor(MapColor.DARK_AQUA));
     public static final Block WAXED_WEATHERED_COPPER_GRATE = new GrateBlock(FabricBlockSettings.copy(WEATHERED_COPPER_GRATE));
-    public static final Block OXIDIZED_COPPER_GRATE = new OxidizableGrateBlock(Oxidizable.OxidationLevel.OXIDIZED, FabricBlockSettings.copy(COPPER_GRATE).mapColor(MapColor.TEAL));
+    public static final Block OXIDIZED_COPPER_GRATE = new OxidizableGrateBlock(Oxidizable.OxidizationLevel.OXIDIZED, FabricBlockSettings.copy(COPPER_GRATE).mapColor(MapColor.TEAL));
     public static final Block WAXED_OXIDIZED_COPPER_GRATE = new GrateBlock(FabricBlockSettings.copy(OXIDIZED_COPPER_GRATE));
 
-    public static final Block COPPER_BULB = new OxidizableBulbBlock(Oxidizable.OxidationLevel.UNAFFECTED, FabricBlockSettings.of(Material.METAL).mapColor(COPPER_BLOCK.getDefaultMapColor()).strength(3.0F, 6.0F).sounds(ModSounds.COPPER_BULB).requiresTool().solidBlock(Blocks::never).luminance(createLightLevelFromLitBlockState(15)));
+    public static final Block COPPER_BULB = new OxidizableBulbBlock(Oxidizable.OxidizationLevel.UNAFFECTED, FabricBlockSettings.of(Material.METAL).mapColor(COPPER_BLOCK.getDefaultMapColor()).strength(3.0F, 6.0F).sounds(ModSounds.COPPER_BULB).requiresTool().solidBlock(Blocks::never).luminance(createLightLevelFromLitBlockState(15)));
     public static final Block WAXED_COPPER_BULB = new BulbBlock(FabricBlockSettings.copy(COPPER_BULB));
-    public static final Block EXPOSED_COPPER_BULB = new OxidizableBulbBlock(Oxidizable.OxidationLevel.EXPOSED, FabricBlockSettings.copy(COPPER_BULB).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).luminance(createLightLevelFromLitBlockState(12)));
+    public static final Block EXPOSED_COPPER_BULB = new OxidizableBulbBlock(Oxidizable.OxidizationLevel.EXPOSED, FabricBlockSettings.copy(COPPER_BULB).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).luminance(createLightLevelFromLitBlockState(12)));
     public static final Block WAXED_EXPOSED_COPPER_BULB = new BulbBlock(FabricBlockSettings.copy(EXPOSED_COPPER_BULB));
-    public static final Block WEATHERED_COPPER_BULB = new OxidizableBulbBlock(Oxidizable.OxidationLevel.WEATHERED, FabricBlockSettings.copy(COPPER_BULB).mapColor(MapColor.DARK_AQUA).luminance(createLightLevelFromLitBlockState(8)));
+    public static final Block WEATHERED_COPPER_BULB = new OxidizableBulbBlock(Oxidizable.OxidizationLevel.WEATHERED, FabricBlockSettings.copy(COPPER_BULB).mapColor(MapColor.DARK_AQUA).luminance(createLightLevelFromLitBlockState(8)));
     public static final Block WAXED_WEATHERED_COPPER_BULB = new BulbBlock(FabricBlockSettings.copy(WEATHERED_COPPER_BULB));
-    public static final Block OXIDIZED_COPPER_BULB = new OxidizableBulbBlock(Oxidizable.OxidationLevel.OXIDIZED, FabricBlockSettings.copy(COPPER_BULB).mapColor(MapColor.TEAL).luminance(createLightLevelFromLitBlockState(4)));
+    public static final Block OXIDIZED_COPPER_BULB = new OxidizableBulbBlock(Oxidizable.OxidizationLevel.OXIDIZED, FabricBlockSettings.copy(COPPER_BULB).mapColor(MapColor.TEAL).luminance(createLightLevelFromLitBlockState(4)));
     public static final Block WAXED_OXIDIZED_COPPER_BULB = new BulbBlock(FabricBlockSettings.copy(OXIDIZED_COPPER_BULB));
 
     public static void registerBlocks() {

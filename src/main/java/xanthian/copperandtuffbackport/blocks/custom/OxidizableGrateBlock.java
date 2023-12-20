@@ -9,9 +9,9 @@ import java.util.Random;
 
 public class OxidizableGrateBlock extends GrateBlock implements Oxidizable {
 
-    private final OxidationLevel oxidationLevel;
+    private final OxidizationLevel oxidationLevel;
 
-    public OxidizableGrateBlock(OxidationLevel oxidationLevel, Settings settings) {
+    public OxidizableGrateBlock(OxidizationLevel oxidationLevel, Settings settings) {
         super(settings);
         this.oxidationLevel = oxidationLevel;
     }
@@ -24,7 +24,7 @@ public class OxidizableGrateBlock extends GrateBlock implements Oxidizable {
         return Oxidizable.getIncreasedOxidationBlock(state.getBlock()).isPresent();
     }
 
-    public OxidationLevel getDegradationLevel() {
+    public OxidizationLevel getDegradationLevel() {
         return this.oxidationLevel;
     }
 }

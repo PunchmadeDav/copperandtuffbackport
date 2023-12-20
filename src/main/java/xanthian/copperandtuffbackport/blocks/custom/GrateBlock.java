@@ -30,12 +30,12 @@ public class GrateBlock extends TransparentBlock implements Waterloggable {
     @Nullable
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
-        return super.getPlacementState(ctx).with(WATERLOGGED, fluidState.isOf(Fluids.WATER));
+        return super.getPlacementState(ctx).with(WATERLOGGED, fluidState.getFluid().matchesType(Fluids.WATER));
     }
 
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (state.get(WATERLOGGED)) {
-            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+            world.getFluidTickScheduler().schedule(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
 
         return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);

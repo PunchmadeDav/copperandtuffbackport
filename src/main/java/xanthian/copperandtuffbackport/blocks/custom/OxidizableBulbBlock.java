@@ -9,9 +9,9 @@ import java.util.Random;
 
 public class OxidizableBulbBlock extends BulbBlock implements Oxidizable {
 
-    private final OxidationLevel oxidationLevel;
+    private final OxidizationLevel oxidationLevel;
 
-    public OxidizableBulbBlock(OxidationLevel oxidationLevel, Settings settings) {
+    public OxidizableBulbBlock(OxidizationLevel oxidationLevel, Settings settings) {
         super(settings);
         this.oxidationLevel = oxidationLevel;
     }
@@ -24,7 +24,7 @@ public class OxidizableBulbBlock extends BulbBlock implements Oxidizable {
         return Oxidizable.getIncreasedOxidationBlock(state.getBlock()).isPresent();
     }
 
-    public OxidationLevel getDegradationLevel() {
+    public OxidizationLevel getDegradationLevel() {
         return this.oxidationLevel;
     }
 }

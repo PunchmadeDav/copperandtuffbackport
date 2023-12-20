@@ -19,9 +19,9 @@ import java.util.Random;
 
 public class OxidizableTrapdoorBlock extends TrapdoorBlock implements Oxidizable {
 
-    private final OxidationLevel oxidationLevel;
+    private final OxidizationLevel oxidationLevel;
 
-    public OxidizableTrapdoorBlock(OxidationLevel oxidationLevel, Settings settings) {
+    public OxidizableTrapdoorBlock(OxidizationLevel oxidationLevel, Settings settings) {
         super(settings);
         this.oxidationLevel = oxidationLevel;
     }
@@ -39,14 +39,14 @@ public class OxidizableTrapdoorBlock extends TrapdoorBlock implements Oxidizable
         state = state.cycle(OPEN);
         world.setBlockState(pos, state, Block.NOTIFY_LISTENERS);
         if (state.get(WATERLOGGED).booleanValue()) {
-            world.createAndScheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+            world.getFluidTickScheduler().schedule(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }
         world.playSound(null, pos, state.get(OPEN) ? ModSounds.BLOCK_COPPER_TRAPDOOR_OPEN : ModSounds.BLOCK_COPPER_TRAPDOOR_CLOSE, SoundCategory.BLOCKS, 1F, 1F);
         //this.playToggleSound(player, world, pos, state.get(OPEN));
         return ActionResult.success(world.isClient);
     }
 
-    public OxidationLevel getDegradationLevel() {
+    public OxidizationLevel getDegradationLevel() {
         return this.oxidationLevel;
     }
 }
