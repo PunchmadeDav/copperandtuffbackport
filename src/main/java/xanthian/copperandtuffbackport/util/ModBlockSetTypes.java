@@ -1,25 +1,35 @@
 package xanthian.copperandtuffbackport.util;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
-import net.minecraft.block.BlockSetType;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Identifier;
-import xanthian.copperandtuffbackport.Initialise;
+import it.unimi.dsi.fastutil.objects.ObjectArraySet;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 
+import java.util.Set;
+import java.util.stream.Stream;
 
 public record ModBlockSetTypes() {
+    private static final Set<BlockSetType> VALUES = new ObjectArraySet<>();
+    public static final BlockSetType COPPER = register(new BlockSetType(
+            "copper",
+            true,
+            SoundType.COPPER,
+            ModSounds.BLOCK_COPPER_DOOR_CLOSE.get(),
+            ModSounds.BLOCK_COPPER_TRAPDOOR_CLOSE.get(),
+            ModSounds.BLOCK_COPPER_DOOR_OPEN.get(),
+            ModSounds.BLOCK_COPPER_TRAPDOOR_OPEN.get(),
+            SoundEvents.METAL_PRESSURE_PLATE_CLICK_OFF,
+            SoundEvents.METAL_PRESSURE_PLATE_CLICK_ON,
+            SoundEvents.STONE_BUTTON_CLICK_OFF,
+            SoundEvents.STONE_BUTTON_CLICK_ON
+    ));
 
-    public static final BlockSetType COPPER = new BlockSetTypeBuilder()
-            .openableByHand(true)
-            .soundGroup(BlockSoundGroup.COPPER)
-            .doorCloseSound(ModSounds.BLOCK_COPPER_DOOR_CLOSE)
-            .trapdoorCloseSound(ModSounds.BLOCK_COPPER_TRAPDOOR_CLOSE)
-            .doorOpenSound(ModSounds.BLOCK_COPPER_DOOR_OPEN)
-            .trapdoorOpenSound(ModSounds.BLOCK_COPPER_TRAPDOOR_OPEN)
-            .pressurePlateClickOffSound(SoundEvents.BLOCK_METAL_PRESSURE_PLATE_CLICK_OFF)
-            .pressurePlateClickOnSound(SoundEvents.BLOCK_METAL_PRESSURE_PLATE_CLICK_ON)
-            .buttonClickOffSound(SoundEvents.BLOCK_STONE_BUTTON_CLICK_OFF)
-            .buttonClickOnSound(SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON)
-            .register(new Identifier(Initialise.MOD_ID, "copper"));
+    public static BlockSetType register(BlockSetType pValue) {
+        VALUES.add(pValue);
+        return pValue;
+    }
+
+    public static Stream<BlockSetType> values() {
+        return VALUES.stream();
+    }
 }

@@ -1,43 +1,48 @@
 package xanthian.copperandtuffbackport.blocks.custom;
 
-import net.minecraft.block.*;
-import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import org.jetbrains.annotations.NotNull;
+import xanthian.copperandtuffbackport.util.ModOxidizable;
 
-public class OxidizableDoorBlock extends DoorBlock implements Oxidizable {
-    private final OxidationLevel oxidationLevel;
+public class OxidizableDoorBlock extends DoorBlock implements ModOxidizable {
+    private final CopperOxidizableLevel oxidationLevel;
 
-    public OxidizableDoorBlock(BlockSetType type, Oxidizable.OxidationLevel oxidationLevel, Settings settings) {
+    public OxidizableDoorBlock(BlockSetType type, CopperOxidizableLevel oxidationLevel, BlockBehaviour.Properties settings) {
         super(settings, type);
         this.oxidationLevel = oxidationLevel;
     }
 
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (state.get(DoorBlock.HALF) == DoubleBlockHalf.LOWER) {
-            this.tickDegradation(state, world, pos, random);
+    public void randomTick(BlockState state, @NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull RandomSource random) {
+        if (state.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER) {
+            this.onRandomTick(state, world, pos, random);
         }
-
     }
 
-    public boolean hasRandomTicks(BlockState state) {
-        return Oxidizable.getIncreasedOxidationBlock(state.getBlock()).isPresent();
+    public boolean isRandomlyTicking(BlockState state) {
+        return ModOxidizable.getNext(state.getBlock()).isPresent();
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        DoubleBlockHalf doubleBlockHalf = state.get(HALF);
-        if (direction.getAxis() == Direction.Axis.Y && doubleBlockHalf == DoubleBlockHalf.LOWER == (direction == Direction.UP)) {
-            return neighborState.getBlock() instanceof DoorBlock && neighborState.get(HALF) != doubleBlockHalf ? neighborState.with(HALF, doubleBlockHalf) : Blocks.AIR.getDefaultState();
+    public @NotNull BlockState updateShape(BlockState pState, Direction pFacing, @NotNull BlockState pFacingState, @NotNull LevelAccessor pLevel, @NotNull BlockPos pCurrentPos, @NotNull BlockPos pFacingPos) {
+        DoubleBlockHalf doubleblockhalf = pState.getValue(HALF);
+        if (pFacing.getAxis() == Direction.Axis.Y && doubleblockhalf == DoubleBlockHalf.LOWER == (pFacing == Direction.UP)) {
+            return pFacingState.getBlock() instanceof OxidizableDoorBlock && pFacingState.getValue(HALF) != doubleblockhalf ? pFacingState.setValue(HALF, doubleblockhalf) : Blocks.AIR.defaultBlockState();
         } else {
-            return doubleBlockHalf == DoubleBlockHalf.LOWER && direction == Direction.DOWN && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+            return doubleblockhalf == DoubleBlockHalf.LOWER && pFacing == Direction.DOWN && !pState.canSurvive(pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
         }
     }
 
-    public OxidationLevel getDegradationLevel() {
+    public @NotNull CopperOxidizableLevel getAge() {
         return this.oxidationLevel;
     }
 }

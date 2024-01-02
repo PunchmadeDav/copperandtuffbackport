@@ -1,32 +1,34 @@
 package xanthian.copperandtuffbackport.blocks.custom;
 
-import net.minecraft.block.BlockSetType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Oxidizable;
-import net.minecraft.block.TrapdoorBlock;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import org.jetbrains.annotations.NotNull;
+import xanthian.copperandtuffbackport.util.ModOxidizable;
 
-public class OxidizableTrapdoorBlock extends TrapdoorBlock implements Oxidizable {
+public class OxidizableTrapdoorBlock extends TrapDoorBlock implements ModOxidizable {
 
-    private final OxidationLevel oxidationLevel;
+    private final CopperOxidizableLevel oxidationLevel;
 
 
-    public OxidizableTrapdoorBlock(BlockSetType type, OxidationLevel oxidationLevel, Settings settings) {
+    public OxidizableTrapdoorBlock(BlockSetType type, CopperOxidizableLevel oxidationLevel, BlockBehaviour.Properties settings) {
         super(settings, type);
         this.oxidationLevel = oxidationLevel;
     }
 
-    public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        this.tickDegradation(state, world, pos, random);
+    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull RandomSource random) {
+        this.onRandomTick(state, world, pos, random);
     }
 
-    public boolean hasRandomTicks(BlockState state) {
-        return Oxidizable.getIncreasedOxidationBlock(state.getBlock()).isPresent();
+    public boolean isRandomlyTicking(BlockState state) {
+        return ModOxidizable.getNext(state.getBlock()).isPresent();
     }
 
-    public OxidationLevel getDegradationLevel() {
+    public @NotNull CopperOxidizableLevel getAge() {
         return this.oxidationLevel;
     }
 }

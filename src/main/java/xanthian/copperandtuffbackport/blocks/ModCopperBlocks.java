@@ -1,120 +1,133 @@
 package xanthian.copperandtuffbackport.blocks;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.*;
-import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.item.BlockItem;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import xanthian.copperandtuffbackport.Initialise;
 import xanthian.copperandtuffbackport.blocks.custom.*;
 import xanthian.copperandtuffbackport.util.ModBlockSetTypes;
+import xanthian.copperandtuffbackport.util.ModItems;
+import xanthian.copperandtuffbackport.util.ModOxidizable;
 import xanthian.copperandtuffbackport.util.ModSounds;
 
-import static net.minecraft.block.Blocks.*;
+import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
+
+import static net.minecraft.data.BlockFamilies.EXPOSED_COPPER;
+
 
 public class ModCopperBlocks {
 
-    public static final Block CHISELED_COPPER = new OxidizableBlock(Oxidizable.OxidationLevel.UNAFFECTED, FabricBlockSettings.copy(COPPER_BLOCK));
-    public static final Block EXPOSED_CHISELED_COPPER = new OxidizableBlock(Oxidizable.OxidationLevel.EXPOSED, FabricBlockSettings.copy(EXPOSED_COPPER));
-    public static final Block OXIDIZED_CHISELED_COPPER = new OxidizableBlock(Oxidizable.OxidationLevel.OXIDIZED, FabricBlockSettings.copy(OXIDIZED_COPPER));
-    public static final Block WEATHERED_CHISELED_COPPER = new OxidizableBlock(Oxidizable.OxidationLevel.WEATHERED, FabricBlockSettings.copy(WEATHERED_COPPER));
-    public static final Block WAXED_CHISELED_COPPER = new Block(FabricBlockSettings.copy(CHISELED_COPPER));
-    public static final Block WAXED_EXPOSED_CHISELED_COPPER = new Block(FabricBlockSettings.copy(EXPOSED_CHISELED_COPPER));
-    public static final Block WAXED_OXIDIZED_CHISELED_COPPER = new Block(FabricBlockSettings.copy(OXIDIZED_CHISELED_COPPER));
-    public static final Block WAXED_WEATHERED_CHISELED_COPPER = new Block(FabricBlockSettings.copy(WEATHERED_CHISELED_COPPER));
+    public static final DeferredRegister<Block> BLOCKS =
+            DeferredRegister.create(ForgeRegistries.BLOCKS, Initialise.MOD_ID);
 
-    public static final Block COPPER_DOOR = new OxidizableDoorBlock(ModBlockSetTypes.COPPER, Oxidizable.OxidationLevel.UNAFFECTED, FabricBlockSettings.create().mapColor(COPPER_BLOCK.getDefaultMapColor()).strength(3.0F, 6.0F).nonOpaque().requiresTool().pistonBehavior(PistonBehavior.DESTROY));
-    public static final Block WAXED_COPPER_DOOR = new DoorBlock(FabricBlockSettings.copy(COPPER_DOOR), ModBlockSetTypes.COPPER);
-    public static final Block EXPOSED_COPPER_DOOR = new OxidizableDoorBlock(ModBlockSetTypes.COPPER, Oxidizable.OxidationLevel.EXPOSED, FabricBlockSettings.copy(COPPER_DOOR).mapColor(EXPOSED_COPPER.getDefaultMapColor()));
-    public static final Block WAXED_EXPOSED_COPPER_DOOR = new DoorBlock(FabricBlockSettings.copy(EXPOSED_COPPER_DOOR), ModBlockSetTypes.COPPER);
-    public static final Block OXIDIZED_COPPER_DOOR = new OxidizableDoorBlock(ModBlockSetTypes.COPPER, Oxidizable.OxidationLevel.OXIDIZED, FabricBlockSettings.copy(COPPER_DOOR).mapColor(OXIDIZED_COPPER.getDefaultMapColor()));
-    public static final Block WAXED_OXIDIZED_COPPER_DOOR = new DoorBlock(FabricBlockSettings.copy(OXIDIZED_COPPER_DOOR), ModBlockSetTypes.COPPER);
-    public static final Block WEATHERED_COPPER_DOOR = new OxidizableDoorBlock(ModBlockSetTypes.COPPER, Oxidizable.OxidationLevel.WEATHERED, FabricBlockSettings.copy(COPPER_DOOR).mapColor(WEATHERED_COPPER.getDefaultMapColor()));
-    public static final Block WAXED_WEATHERED_COPPER_DOOR = new DoorBlock(FabricBlockSettings.copy(WEATHERED_COPPER_DOOR), ModBlockSetTypes.COPPER);
+    public static final RegistryObject<Block> CHISELED_COPPER = register("chiseled_copper",
+            () -> new OxidizableFullBlock(ModOxidizable.CopperOxidizableLevel.UNAFFECTED, BlockBehaviour.Properties.copy(Blocks.COPPER_BLOCK)));
+    public static final RegistryObject<Block> WAXED_CHISELED_COPPER = register("waxed_chiseled_copper",
+            () -> new Block(BlockBehaviour.Properties.copy(CHISELED_COPPER.get())));
+    public static final RegistryObject<Block> EXPOSED_CHISELED_COPPER = register("exposed_chiseled_copper",
+            () -> new OxidizableFullBlock(ModOxidizable.CopperOxidizableLevel.EXPOSED, BlockBehaviour.Properties.copy(Blocks.EXPOSED_COPPER)));
+    public static final RegistryObject<Block> WAXED_EXPOSED_CHISELED_COPPER = register("waxed_exposed_chiseled_copper",
+            () -> new Block(BlockBehaviour.Properties.copy(EXPOSED_CHISELED_COPPER.get())));
+    public static final RegistryObject<Block> OXIDIZED_CHISELED_COPPER = register("oxidized_chiseled_copper",
+            () -> new OxidizableFullBlock(ModOxidizable.CopperOxidizableLevel.OXIDIZED, BlockBehaviour.Properties.copy(Blocks.OXIDIZED_COPPER)));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_CHISELED_COPPER = register("waxed_oxidized_chiseled_copper",
+            () -> new Block(BlockBehaviour.Properties.copy(OXIDIZED_CHISELED_COPPER.get())));
+    public static final RegistryObject<Block> WEATHERED_CHISELED_COPPER = register("weathered_chiseled_copper",
+            () -> new OxidizableFullBlock(ModOxidizable.CopperOxidizableLevel.WEATHERED, BlockBehaviour.Properties.copy(Blocks.WEATHERED_COPPER)));
+    public static final RegistryObject<Block> WAXED_WEATHERED_CHISELED_COPPER = register("waxed_weathered_chiseled_copper",
+            () -> new Block(BlockBehaviour.Properties.copy(WEATHERED_CHISELED_COPPER.get())));
 
-    public static final Block COPPER_TRAPDOOR = new OxidizableTrapdoorBlock(ModBlockSetTypes.COPPER, Oxidizable.OxidationLevel.UNAFFECTED, FabricBlockSettings.create().mapColor(COPPER_BLOCK.getDefaultMapColor()).strength(3.0F, 6.0F).requiresTool().nonOpaque().allowsSpawning(Blocks::never));
-    public static final Block WAXED_COPPER_TRAPDOOR = new TrapdoorBlock(FabricBlockSettings.copy(COPPER_TRAPDOOR), ModBlockSetTypes.COPPER);
-    public static final Block EXPOSED_COPPER_TRAPDOOR = new OxidizableTrapdoorBlock(ModBlockSetTypes.COPPER, Oxidizable.OxidationLevel.EXPOSED, FabricBlockSettings.copy(COPPER_TRAPDOOR).mapColor(EXPOSED_COPPER.getDefaultMapColor()));
-    public static final Block WAXED_EXPOSED_COPPER_TRAPDOOR = new TrapdoorBlock(FabricBlockSettings.copy(EXPOSED_COPPER_TRAPDOOR), ModBlockSetTypes.COPPER);
-    public static final Block OXIDIZED_COPPER_TRAPDOOR = new OxidizableTrapdoorBlock(ModBlockSetTypes.COPPER, Oxidizable.OxidationLevel.OXIDIZED, FabricBlockSettings.copy(COPPER_TRAPDOOR).mapColor(OXIDIZED_COPPER.getDefaultMapColor()));
-    public static final Block WAXED_OXIDIZED_COPPER_TRAPDOOR = new TrapdoorBlock(FabricBlockSettings.copy(OXIDIZED_COPPER_TRAPDOOR), ModBlockSetTypes.COPPER);
-    public static final Block WEATHERED_COPPER_TRAPDOOR = new OxidizableTrapdoorBlock(ModBlockSetTypes.COPPER, Oxidizable.OxidationLevel.WEATHERED, FabricBlockSettings.copy(COPPER_TRAPDOOR).mapColor(WEATHERED_COPPER.getDefaultMapColor()));
-    public static final Block WAXED_WEATHERED_COPPER_TRAPDOOR = new TrapdoorBlock(FabricBlockSettings.copy(WEATHERED_COPPER_TRAPDOOR), ModBlockSetTypes.COPPER);
+    public static final RegistryObject<Block> COPPER_DOOR = register("copper_door",
+            () -> new OxidizableDoorBlock(ModBlockSetTypes.COPPER, ModOxidizable.CopperOxidizableLevel.UNAFFECTED, BlockBehaviour.Properties.of().mapColor(Blocks.COPPER_BLOCK.defaultMapColor()).strength(3.0F, 6.0F).noOcclusion().requiresCorrectToolForDrops().pushReaction(PushReaction.DESTROY)));
+    public static final RegistryObject<Block> WAXED_COPPER_DOOR = register("waxed_copper_door",
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(COPPER_DOOR.get()), ModBlockSetTypes.COPPER));
+    public static final RegistryObject<Block> EXPOSED_COPPER_DOOR = register("exposed_copper_door",
+            () -> new OxidizableDoorBlock(ModBlockSetTypes.COPPER, ModOxidizable.CopperOxidizableLevel.EXPOSED, BlockBehaviour.Properties.copy(COPPER_DOOR.get()).mapColor(EXPOSED_COPPER.getBaseBlock().defaultMapColor())));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_DOOR = register("waxed_exposed_copper_door",
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(EXPOSED_COPPER_DOOR.get()), ModBlockSetTypes.COPPER));
+    public static final RegistryObject<Block> OXIDIZED_COPPER_DOOR = register("oxidized_copper_door",
+            () -> new OxidizableDoorBlock(ModBlockSetTypes.COPPER, ModOxidizable.CopperOxidizableLevel.OXIDIZED, BlockBehaviour.Properties.copy(COPPER_DOOR.get()).mapColor(Blocks.OXIDIZED_COPPER.defaultMapColor())));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_DOOR = register("waxed_oxidized_copper_door",
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(OXIDIZED_COPPER_DOOR.get()), ModBlockSetTypes.COPPER));
+    public static final RegistryObject<Block> WEATHERED_COPPER_DOOR = register("weathered_copper_door",
+            () -> new OxidizableDoorBlock(ModBlockSetTypes.COPPER, ModOxidizable.CopperOxidizableLevel.WEATHERED, BlockBehaviour.Properties.copy(COPPER_DOOR.get()).mapColor(Blocks.WEATHERED_COPPER.defaultMapColor())));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_DOOR = register("waxed_weathered_copper_door",
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(WEATHERED_COPPER_DOOR.get()), ModBlockSetTypes.COPPER));
 
-    public static final Block COPPER_GRATE = new OxidizableGrateBlock(Oxidizable.OxidationLevel.UNAFFECTED, FabricBlockSettings.create().strength(3.0F, 6.0F).sounds(ModSounds.COPPER_GRATE).mapColor(MapColor.ORANGE).nonOpaque().requiresTool().allowsSpawning(Blocks::never).solidBlock(Blocks::never).suffocates(Blocks::never).blockVision(Blocks::never));
-    public static final Block WAXED_COPPER_GRATE = new GrateBlock(FabricBlockSettings.copy(COPPER_GRATE));
-    public static final Block EXPOSED_COPPER_GRATE = new OxidizableGrateBlock(Oxidizable.OxidationLevel.EXPOSED, FabricBlockSettings.copy(COPPER_GRATE).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY));
-    public static final Block WAXED_EXPOSED_COPPER_GRATE = new GrateBlock(FabricBlockSettings.copy(EXPOSED_COPPER_GRATE));
-    public static final Block WEATHERED_COPPER_GRATE = new OxidizableGrateBlock(Oxidizable.OxidationLevel.WEATHERED, FabricBlockSettings.copy(COPPER_GRATE).mapColor(MapColor.DARK_AQUA));
-    public static final Block WAXED_WEATHERED_COPPER_GRATE = new GrateBlock(FabricBlockSettings.copy(WEATHERED_COPPER_GRATE));
-    public static final Block OXIDIZED_COPPER_GRATE = new OxidizableGrateBlock(Oxidizable.OxidationLevel.OXIDIZED, FabricBlockSettings.copy(COPPER_GRATE).mapColor(MapColor.TEAL));
-    public static final Block WAXED_OXIDIZED_COPPER_GRATE = new GrateBlock(FabricBlockSettings.copy(OXIDIZED_COPPER_GRATE));
+    public static final RegistryObject<Block> COPPER_TRAPDOOR = register("copper_trapdoor",
+            () -> new OxidizableTrapdoorBlock(ModBlockSetTypes.COPPER, ModOxidizable.CopperOxidizableLevel.UNAFFECTED, BlockBehaviour.Properties.of().mapColor(Blocks.COPPER_BLOCK.defaultMapColor()).strength(3.0F, 6.0F).requiresCorrectToolForDrops().noOcclusion().isValidSpawn(Blocks::never)));
+    public static final RegistryObject<Block> WAXED_COPPER_TRAPDOOR = register("waxed_copper_trapdoor",
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(COPPER_TRAPDOOR.get()), ModBlockSetTypes.COPPER));
+    public static final RegistryObject<Block> EXPOSED_COPPER_TRAPDOOR = register("exposed_copper_trapdoor",
+            () -> new OxidizableTrapdoorBlock(ModBlockSetTypes.COPPER, ModOxidizable.CopperOxidizableLevel.EXPOSED, BlockBehaviour.Properties.copy(COPPER_TRAPDOOR.get()).mapColor(Blocks.EXPOSED_COPPER.defaultMapColor())));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_TRAPDOOR = register("waxed_exposed_copper_trapdoor",
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(EXPOSED_COPPER_TRAPDOOR.get()), ModBlockSetTypes.COPPER));
+    public static final RegistryObject<Block> OXIDIZED_COPPER_TRAPDOOR = register("oxidized_copper_trapdoor",
+            () -> new OxidizableTrapdoorBlock(ModBlockSetTypes.COPPER, ModOxidizable.CopperOxidizableLevel.OXIDIZED, BlockBehaviour.Properties.copy(COPPER_TRAPDOOR.get()).mapColor(Blocks.OXIDIZED_COPPER.defaultMapColor())));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_TRAPDOOR = register("waxed_oxidized_copper_trapdoor",
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(OXIDIZED_COPPER_TRAPDOOR.get()), ModBlockSetTypes.COPPER));
+    public static final RegistryObject<Block> WEATHERED_COPPER_TRAPDOOR = register("weathered_copper_trapdoor",
+            () -> new OxidizableTrapdoorBlock(ModBlockSetTypes.COPPER, ModOxidizable.CopperOxidizableLevel.WEATHERED, BlockBehaviour.Properties.copy(COPPER_TRAPDOOR.get()).mapColor(Blocks.WEATHERED_COPPER.defaultMapColor())));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_TRAPDOOR = register("waxed_weathered_copper_trapdoor",
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(WEATHERED_COPPER_TRAPDOOR.get()), ModBlockSetTypes.COPPER));
 
-    public static final Block COPPER_BULB = new OxidizableBulbBlock(Oxidizable.OxidationLevel.UNAFFECTED, FabricBlockSettings.create().mapColor(COPPER_BLOCK.getDefaultMapColor()).strength(3.0F, 6.0F).sounds(ModSounds.COPPER_BULB).requiresTool().solidBlock(Blocks::never).luminance(createLightLevelFromLitBlockState(15)));
-    public static final Block WAXED_COPPER_BULB = new BulbBlock(FabricBlockSettings.copy(COPPER_BULB));
-    public static final Block EXPOSED_COPPER_BULB = new OxidizableBulbBlock(Oxidizable.OxidationLevel.EXPOSED, FabricBlockSettings.copy(COPPER_BULB).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).luminance(createLightLevelFromLitBlockState(12)));
-    public static final Block WAXED_EXPOSED_COPPER_BULB = new BulbBlock(FabricBlockSettings.copy(EXPOSED_COPPER_BULB));
-    public static final Block WEATHERED_COPPER_BULB = new OxidizableBulbBlock(Oxidizable.OxidationLevel.WEATHERED, FabricBlockSettings.copy(COPPER_BULB).mapColor(MapColor.DARK_AQUA).luminance(createLightLevelFromLitBlockState(8)));
-    public static final Block WAXED_WEATHERED_COPPER_BULB = new BulbBlock(FabricBlockSettings.copy(WEATHERED_COPPER_BULB));
-    public static final Block OXIDIZED_COPPER_BULB = new OxidizableBulbBlock(Oxidizable.OxidationLevel.OXIDIZED, FabricBlockSettings.copy(COPPER_BULB).mapColor(MapColor.TEAL).luminance(createLightLevelFromLitBlockState(4)));
-    public static final Block WAXED_OXIDIZED_COPPER_BULB = new BulbBlock(FabricBlockSettings.copy(OXIDIZED_COPPER_BULB));
+    public static final RegistryObject<Block> COPPER_GRATE = register("copper_grate",
+            () -> new OxidizableGrateBlock(ModOxidizable.CopperOxidizableLevel.UNAFFECTED, BlockBehaviour.Properties.of().strength(3.0F, 6.0F).sound(ModSounds.COPPER_GRATE).mapColor(MapColor.COLOR_ORANGE).noOcclusion().requiresCorrectToolForDrops().isValidSpawn(Blocks::never).isRedstoneConductor(Blocks::never).isSuffocating(Blocks::never).isViewBlocking(Blocks::never)));
+    public static final RegistryObject<Block> WAXED_COPPER_GRATE = register("waxed_copper_grate",
+            () -> new GrateBlock(BlockBehaviour.Properties.copy(COPPER_GRATE.get())));
+    public static final RegistryObject<Block> EXPOSED_COPPER_GRATE = register("exposed_copper_grate",
+            () -> new OxidizableGrateBlock(ModOxidizable.CopperOxidizableLevel.EXPOSED, BlockBehaviour.Properties.copy(COPPER_GRATE.get()).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY)));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_GRATE = register("waxed_exposed_copper_grate",
+            () -> new GrateBlock(BlockBehaviour.Properties.copy(EXPOSED_COPPER_GRATE.get())));
+    public static final RegistryObject<Block> WEATHERED_COPPER_GRATE = register("weathered_copper_grate",
+            () -> new OxidizableGrateBlock(ModOxidizable.CopperOxidizableLevel.WEATHERED, BlockBehaviour.Properties.copy(COPPER_GRATE.get()).mapColor(MapColor.WARPED_STEM)));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_GRATE = register("waxed_weathered_copper_grate",
+            () -> new GrateBlock(BlockBehaviour.Properties.copy(WEATHERED_COPPER_GRATE.get())));
+    public static final RegistryObject<Block> OXIDIZED_COPPER_GRATE = register("oxidized_copper_grate",
+            () -> new OxidizableGrateBlock(ModOxidizable.CopperOxidizableLevel.OXIDIZED, BlockBehaviour.Properties.copy(COPPER_GRATE.get()).mapColor(MapColor.WARPED_NYLIUM)));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_GRATE = register("waxed_oxidized_copper_grate",
+            () -> new GrateBlock(BlockBehaviour.Properties.copy(OXIDIZED_COPPER_GRATE.get())));
 
-    public static void registerBlocks() {
+    public static final RegistryObject<Block> COPPER_BULB = register("copper_bulb",
+            () -> new OxidizableBulbBlock(ModOxidizable.CopperOxidizableLevel.UNAFFECTED, BlockBehaviour.Properties.of().mapColor(Blocks.COPPER_BLOCK.defaultMapColor()).strength(3.0F, 6.0F).sound(ModSounds.COPPER_BULB).requiresCorrectToolForDrops().isRedstoneConductor(Blocks::never).lightLevel(litBlockEmission(15))));
+    public static final RegistryObject<Block> WAXED_COPPER_BULB = register("waxed_copper_bulb",
+            () -> new BulbBlock(BlockBehaviour.Properties.copy(COPPER_BULB.get())));
+    public static final RegistryObject<Block> EXPOSED_COPPER_BULB = register("exposed_copper_bulb",
+            () -> new OxidizableBulbBlock(ModOxidizable.CopperOxidizableLevel.EXPOSED, BlockBehaviour.Properties.copy(COPPER_BULB.get()).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).lightLevel(litBlockEmission(12))));
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_BULB = register("waxed_exposed_copper_bulb",
+            () -> new BulbBlock(BlockBehaviour.Properties.copy(EXPOSED_COPPER_BULB.get())));
+    public static final RegistryObject<Block> WEATHERED_COPPER_BULB = register("weathered_copper_bulb",
+            () -> new OxidizableBulbBlock(ModOxidizable.CopperOxidizableLevel.WEATHERED, BlockBehaviour.Properties.copy(COPPER_BULB.get()).mapColor(MapColor.WARPED_STEM).lightLevel(litBlockEmission(8))));
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_BULB = register("waxed_weathered_copper_bulb",
+            () -> new BulbBlock(BlockBehaviour.Properties.copy(WEATHERED_COPPER_BULB.get())));
+    public static final RegistryObject<Block> OXIDIZED_COPPER_BULB = register("oxidized_copper_bulb",
+            () -> new OxidizableBulbBlock(ModOxidizable.CopperOxidizableLevel.OXIDIZED, BlockBehaviour.Properties.copy(COPPER_BULB.get()).mapColor(MapColor.WARPED_NYLIUM).lightLevel(litBlockEmission(4))));
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_BULB = register("waxed_oxidized_copper_bulb",
+            () -> new BulbBlock(BlockBehaviour.Properties.copy(OXIDIZED_COPPER_BULB.get())));
 
-        register("chiseled_copper", CHISELED_COPPER);
-        register("exposed_chiseled_copper", EXPOSED_CHISELED_COPPER);
-        register("oxidized_chiseled_copper", OXIDIZED_CHISELED_COPPER);
-        register("weathered_chiseled_copper", WEATHERED_CHISELED_COPPER);
-        register("waxed_chiseled_copper", WAXED_CHISELED_COPPER);
-        register("waxed_exposed_chiseled_copper", WAXED_EXPOSED_CHISELED_COPPER);
-        register("waxed_oxidized_chiseled_copper", WAXED_OXIDIZED_CHISELED_COPPER);
-        register("waxed_weathered_chiseled_copper", WAXED_WEATHERED_CHISELED_COPPER);
-
-        register("copper_door", COPPER_DOOR);
-        register("exposed_copper_door", EXPOSED_COPPER_DOOR);
-        register("oxidized_copper_door", OXIDIZED_COPPER_DOOR);
-        register("weathered_copper_door", WEATHERED_COPPER_DOOR);
-        register("waxed_copper_door", WAXED_COPPER_DOOR);
-        register("waxed_exposed_copper_door", WAXED_EXPOSED_COPPER_DOOR);
-        register("waxed_oxidized_copper_door", WAXED_OXIDIZED_COPPER_DOOR);
-        register("waxed_weathered_copper_door", WAXED_WEATHERED_COPPER_DOOR);
-
-        register("copper_trapdoor", COPPER_TRAPDOOR);
-        register("exposed_copper_trapdoor", EXPOSED_COPPER_TRAPDOOR);
-        register("oxidized_copper_trapdoor", OXIDIZED_COPPER_TRAPDOOR);
-        register("weathered_copper_trapdoor", WEATHERED_COPPER_TRAPDOOR);
-        register("waxed_copper_trapdoor", WAXED_COPPER_TRAPDOOR);
-        register("waxed_exposed_copper_trapdoor", WAXED_EXPOSED_COPPER_TRAPDOOR);
-        register("waxed_oxidized_copper_trapdoor", WAXED_OXIDIZED_COPPER_TRAPDOOR);
-        register("waxed_weathered_copper_trapdoor", WAXED_WEATHERED_COPPER_TRAPDOOR);
-
-        register("copper_grate", COPPER_GRATE);
-        register("exposed_copper_grate", EXPOSED_COPPER_GRATE);
-        register("oxidized_copper_grate", OXIDIZED_COPPER_GRATE);
-        register("weathered_copper_grate", WEATHERED_COPPER_GRATE);
-        register("waxed_copper_grate", WAXED_COPPER_GRATE);
-        register("waxed_exposed_copper_grate", WAXED_EXPOSED_COPPER_GRATE);
-        register("waxed_oxidized_copper_grate", WAXED_OXIDIZED_COPPER_GRATE);
-        register("waxed_weathered_copper_grate", WAXED_WEATHERED_COPPER_GRATE);
-
-        register("copper_bulb", COPPER_BULB);
-        register("exposed_copper_bulb", EXPOSED_COPPER_BULB);
-        register("oxidized_copper_bulb", OXIDIZED_COPPER_BULB);
-        register("weathered_copper_bulb", WEATHERED_COPPER_BULB);
-        register("waxed_copper_bulb", WAXED_COPPER_BULB);
-        register("waxed_exposed_copper_bulb", WAXED_EXPOSED_COPPER_BULB);
-        register("waxed_oxidized_copper_bulb", WAXED_OXIDIZED_COPPER_BULB);
-        register("waxed_weathered_copper_bulb", WAXED_WEATHERED_COPPER_BULB);
-
-
+    private static ToIntFunction<BlockState> litBlockEmission(int pLightValue) {
+        return (state) -> state.getValue(BlockStateProperties.LIT) ? pLightValue : 0;
     }
 
-    private static void register(String name, Block block) {
-        Identifier identifier = new Identifier(Initialise.MOD_ID, name);
-        Registry.register(Registries.BLOCK, identifier, block);
-        Registry.register(Registries.ITEM, identifier, new BlockItem(block, new FabricItemSettings()));
+    private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> block) {
+        RegistryObject<T> toReturn = BLOCKS.register(name, block);
+        registerBlockItem(name, toReturn);
+        return toReturn;
+    }
+
+    private static <T extends Block> RegistryObject<BlockItem> registerBlockItem(String name, RegistryObject<T> block) {
+        return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 }
