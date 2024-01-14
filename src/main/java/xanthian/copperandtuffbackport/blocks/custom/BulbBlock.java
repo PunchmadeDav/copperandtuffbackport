@@ -29,14 +29,12 @@ public class BulbBlock extends Block {
         if (oldState.getBlock() != state.getBlock() && world instanceof ServerWorld serverWorld) {
             this.update(state, serverWorld, pos);
         }
-
     }
 
     public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
         if (world instanceof ServerWorld serverWorld) {
             this.update(state, serverWorld, pos);
         }
-
     }
 
     public void update(BlockState state, ServerWorld world, BlockPos pos) {
@@ -47,7 +45,6 @@ public class BulbBlock extends Block {
                 blockState = state.cycle(LIT);
                 world.playSound(null, pos, blockState.get(LIT) ? ModSounds.BLOCK_COPPER_BULB_TURN_ON : ModSounds.BLOCK_COPPER_BULB_TURN_OFF, SoundCategory.BLOCKS, 2F, 1F);
             }
-
             world.setBlockState(pos, blockState.with(POWERED, bl), 3);
         }
     }
