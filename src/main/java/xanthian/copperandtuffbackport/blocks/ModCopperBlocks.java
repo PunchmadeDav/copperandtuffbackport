@@ -4,7 +4,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -52,19 +51,19 @@ public class ModCopperBlocks {
     public static final RegistryObject<Block> COPPER_DOOR = register("copper_door",
             () -> new OxidizableDoorBlock(ModBlockSetTypes.COPPER, ModOxidizable.CopperOxidizableLevel.UNAFFECTED, BlockBehaviour.Properties.of().mapColor(Blocks.COPPER_BLOCK.defaultMapColor()).strength(3.0F, 6.0F).noOcclusion().requiresCorrectToolForDrops().pushReaction(PushReaction.DESTROY)));
     public static final RegistryObject<Block> WAXED_COPPER_DOOR = register("waxed_copper_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.copy(COPPER_DOOR.get()), ModBlockSetTypes.COPPER));
+            () -> new CopperDoorBlock(ModBlockSetTypes.COPPER, BlockBehaviour.Properties.copy(COPPER_DOOR.get())));
     public static final RegistryObject<Block> EXPOSED_COPPER_DOOR = register("exposed_copper_door",
             () -> new OxidizableDoorBlock(ModBlockSetTypes.COPPER, ModOxidizable.CopperOxidizableLevel.EXPOSED, BlockBehaviour.Properties.copy(COPPER_DOOR.get()).mapColor(EXPOSED_COPPER.getBaseBlock().defaultMapColor())));
     public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_DOOR = register("waxed_exposed_copper_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.copy(EXPOSED_COPPER_DOOR.get()), ModBlockSetTypes.COPPER));
+            () -> new CopperDoorBlock(ModBlockSetTypes.COPPER, BlockBehaviour.Properties.copy(EXPOSED_COPPER_DOOR.get())));
     public static final RegistryObject<Block> OXIDIZED_COPPER_DOOR = register("oxidized_copper_door",
             () -> new OxidizableDoorBlock(ModBlockSetTypes.COPPER, ModOxidizable.CopperOxidizableLevel.OXIDIZED, BlockBehaviour.Properties.copy(COPPER_DOOR.get()).mapColor(Blocks.OXIDIZED_COPPER.defaultMapColor())));
     public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_DOOR = register("waxed_oxidized_copper_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.copy(OXIDIZED_COPPER_DOOR.get()), ModBlockSetTypes.COPPER));
+            () -> new CopperDoorBlock(ModBlockSetTypes.COPPER, BlockBehaviour.Properties.copy(OXIDIZED_COPPER_DOOR.get())));
     public static final RegistryObject<Block> WEATHERED_COPPER_DOOR = register("weathered_copper_door",
             () -> new OxidizableDoorBlock(ModBlockSetTypes.COPPER, ModOxidizable.CopperOxidizableLevel.WEATHERED, BlockBehaviour.Properties.copy(COPPER_DOOR.get()).mapColor(Blocks.WEATHERED_COPPER.defaultMapColor())));
     public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_DOOR = register("waxed_weathered_copper_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.copy(WEATHERED_COPPER_DOOR.get()), ModBlockSetTypes.COPPER));
+            () -> new CopperDoorBlock(ModBlockSetTypes.COPPER, BlockBehaviour.Properties.copy(WEATHERED_COPPER_DOOR.get())));
 
     public static final RegistryObject<Block> COPPER_TRAPDOOR = register("copper_trapdoor",
             () -> new OxidizableTrapdoorBlock(ModBlockSetTypes.COPPER, ModOxidizable.CopperOxidizableLevel.UNAFFECTED, BlockBehaviour.Properties.of().mapColor(Blocks.COPPER_BLOCK.defaultMapColor()).strength(3.0F, 6.0F).requiresCorrectToolForDrops().noOcclusion().isValidSpawn(Blocks::never)));
@@ -105,15 +104,15 @@ public class ModCopperBlocks {
     public static final RegistryObject<Block> WAXED_COPPER_BULB = register("waxed_copper_bulb",
             () -> new BulbBlock(BlockBehaviour.Properties.copy(COPPER_BULB.get())));
     public static final RegistryObject<Block> EXPOSED_COPPER_BULB = register("exposed_copper_bulb",
-            () -> new OxidizableBulbBlock(ModOxidizable.CopperOxidizableLevel.EXPOSED, BlockBehaviour.Properties.copy(COPPER_BULB.get()).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).lightLevel(litBlockEmission(12))));
+            () -> new OxidizableBulbBlock(ModOxidizable.CopperOxidizableLevel.EXPOSED, BlockBehaviour.Properties.copy(COPPER_BULB.get()).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).isRedstoneConductor(Blocks::never).lightLevel(litBlockEmission(12))));
     public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_BULB = register("waxed_exposed_copper_bulb",
             () -> new BulbBlock(BlockBehaviour.Properties.copy(EXPOSED_COPPER_BULB.get())));
     public static final RegistryObject<Block> WEATHERED_COPPER_BULB = register("weathered_copper_bulb",
-            () -> new OxidizableBulbBlock(ModOxidizable.CopperOxidizableLevel.WEATHERED, BlockBehaviour.Properties.copy(COPPER_BULB.get()).mapColor(MapColor.WARPED_STEM).lightLevel(litBlockEmission(8))));
+            () -> new OxidizableBulbBlock(ModOxidizable.CopperOxidizableLevel.WEATHERED, BlockBehaviour.Properties.copy(COPPER_BULB.get()).mapColor(MapColor.WARPED_STEM).isRedstoneConductor(Blocks::never).lightLevel(litBlockEmission(8))));
     public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_BULB = register("waxed_weathered_copper_bulb",
             () -> new BulbBlock(BlockBehaviour.Properties.copy(WEATHERED_COPPER_BULB.get())));
     public static final RegistryObject<Block> OXIDIZED_COPPER_BULB = register("oxidized_copper_bulb",
-            () -> new OxidizableBulbBlock(ModOxidizable.CopperOxidizableLevel.OXIDIZED, BlockBehaviour.Properties.copy(COPPER_BULB.get()).mapColor(MapColor.WARPED_NYLIUM).lightLevel(litBlockEmission(4))));
+            () -> new OxidizableBulbBlock(ModOxidizable.CopperOxidizableLevel.OXIDIZED, BlockBehaviour.Properties.copy(COPPER_BULB.get()).mapColor(MapColor.WARPED_NYLIUM).isRedstoneConductor(Blocks::never).lightLevel(litBlockEmission(4))));
     public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_BULB = register("waxed_oxidized_copper_bulb",
             () -> new BulbBlock(BlockBehaviour.Properties.copy(OXIDIZED_COPPER_BULB.get())));
 
