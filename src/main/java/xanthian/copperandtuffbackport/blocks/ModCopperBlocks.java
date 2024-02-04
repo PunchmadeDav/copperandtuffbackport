@@ -1,7 +1,10 @@
 package xanthian.copperandtuffbackport.blocks;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TrapDoorBlock;
@@ -24,7 +27,6 @@ import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
 import static net.minecraft.data.BlockFamilies.EXPOSED_COPPER;
-
 
 public class ModCopperBlocks {
 
@@ -66,59 +68,55 @@ public class ModCopperBlocks {
             () -> new CopperDoorBlock(ModBlockSetTypes.COPPER, BlockBehaviour.Properties.copy(WEATHERED_COPPER_DOOR.get())));
 
     public static final RegistryObject<Block> COPPER_TRAPDOOR = register("copper_trapdoor",
-            () -> new OxidizableTrapdoorBlock(ModBlockSetTypes.COPPER, ModOxidizable.CopperOxidizableLevel.UNAFFECTED, BlockBehaviour.Properties.of().mapColor(Blocks.COPPER_BLOCK.defaultMapColor()).strength(3.0F, 6.0F).requiresCorrectToolForDrops().noOcclusion().isValidSpawn(Blocks::never)));
+            () -> new OxidizableTrapdoorBlock(ModBlockSetTypes.COPPER, ModOxidizable.CopperOxidizableLevel.UNAFFECTED, BlockBehaviour.Properties.of().mapColor(Blocks.COPPER_BLOCK.defaultMapColor()).strength(3.0F, 6.0F).requiresCorrectToolForDrops().noOcclusion().isValidSpawn(ModCopperBlocks::never)));
     public static final RegistryObject<Block> WAXED_COPPER_TRAPDOOR = register("waxed_copper_trapdoor",
-            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(COPPER_TRAPDOOR.get()), ModBlockSetTypes.COPPER));
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(COPPER_TRAPDOOR.get()).isValidSpawn(ModCopperBlocks::never), ModBlockSetTypes.COPPER));
     public static final RegistryObject<Block> EXPOSED_COPPER_TRAPDOOR = register("exposed_copper_trapdoor",
-            () -> new OxidizableTrapdoorBlock(ModBlockSetTypes.COPPER, ModOxidizable.CopperOxidizableLevel.EXPOSED, BlockBehaviour.Properties.copy(COPPER_TRAPDOOR.get()).mapColor(Blocks.EXPOSED_COPPER.defaultMapColor())));
+            () -> new OxidizableTrapdoorBlock(ModBlockSetTypes.COPPER, ModOxidizable.CopperOxidizableLevel.EXPOSED, BlockBehaviour.Properties.copy(COPPER_TRAPDOOR.get()).mapColor(Blocks.EXPOSED_COPPER.defaultMapColor()).isValidSpawn(ModCopperBlocks::never)));
     public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_TRAPDOOR = register("waxed_exposed_copper_trapdoor",
-            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(EXPOSED_COPPER_TRAPDOOR.get()), ModBlockSetTypes.COPPER));
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(EXPOSED_COPPER_TRAPDOOR.get()).isValidSpawn(ModCopperBlocks::never), ModBlockSetTypes.COPPER));
     public static final RegistryObject<Block> OXIDIZED_COPPER_TRAPDOOR = register("oxidized_copper_trapdoor",
-            () -> new OxidizableTrapdoorBlock(ModBlockSetTypes.COPPER, ModOxidizable.CopperOxidizableLevel.OXIDIZED, BlockBehaviour.Properties.copy(COPPER_TRAPDOOR.get()).mapColor(Blocks.OXIDIZED_COPPER.defaultMapColor())));
+            () -> new OxidizableTrapdoorBlock(ModBlockSetTypes.COPPER, ModOxidizable.CopperOxidizableLevel.OXIDIZED, BlockBehaviour.Properties.copy(COPPER_TRAPDOOR.get()).mapColor(Blocks.OXIDIZED_COPPER.defaultMapColor()).isValidSpawn(ModCopperBlocks::never)));
     public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_TRAPDOOR = register("waxed_oxidized_copper_trapdoor",
-            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(OXIDIZED_COPPER_TRAPDOOR.get()), ModBlockSetTypes.COPPER));
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(OXIDIZED_COPPER_TRAPDOOR.get()).isValidSpawn(ModCopperBlocks::never), ModBlockSetTypes.COPPER));
     public static final RegistryObject<Block> WEATHERED_COPPER_TRAPDOOR = register("weathered_copper_trapdoor",
-            () -> new OxidizableTrapdoorBlock(ModBlockSetTypes.COPPER, ModOxidizable.CopperOxidizableLevel.WEATHERED, BlockBehaviour.Properties.copy(COPPER_TRAPDOOR.get()).mapColor(Blocks.WEATHERED_COPPER.defaultMapColor())));
+            () -> new OxidizableTrapdoorBlock(ModBlockSetTypes.COPPER, ModOxidizable.CopperOxidizableLevel.WEATHERED, BlockBehaviour.Properties.copy(COPPER_TRAPDOOR.get()).mapColor(Blocks.WEATHERED_COPPER.defaultMapColor()).isValidSpawn(ModCopperBlocks::never)));
     public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_TRAPDOOR = register("waxed_weathered_copper_trapdoor",
-            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(WEATHERED_COPPER_TRAPDOOR.get()), ModBlockSetTypes.COPPER));
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(WEATHERED_COPPER_TRAPDOOR.get()).isValidSpawn(ModCopperBlocks::never), ModBlockSetTypes.COPPER));
 
     public static final RegistryObject<Block> COPPER_GRATE = register("copper_grate",
-            () -> new OxidizableGrateBlock(ModOxidizable.CopperOxidizableLevel.UNAFFECTED, BlockBehaviour.Properties.of().strength(3.0F, 6.0F).sound(ModSounds.COPPER_GRATE).mapColor(MapColor.COLOR_ORANGE).noOcclusion().requiresCorrectToolForDrops().isValidSpawn(Blocks::never).isRedstoneConductor(Blocks::never).isSuffocating(Blocks::never).isViewBlocking(Blocks::never)));
+            () -> new OxidizableGrateBlock(ModOxidizable.CopperOxidizableLevel.UNAFFECTED, BlockBehaviour.Properties.of().strength(3.0F, 6.0F).sound(ModSounds.COPPER_GRATE).mapColor(MapColor.COLOR_ORANGE).noOcclusion().requiresCorrectToolForDrops().isValidSpawn(ModCopperBlocks::never).isRedstoneConductor(ModCopperBlocks::never).isSuffocating(ModCopperBlocks::never).isViewBlocking(ModCopperBlocks::never)));
     public static final RegistryObject<Block> WAXED_COPPER_GRATE = register("waxed_copper_grate",
-            () -> new GrateBlock(BlockBehaviour.Properties.copy(COPPER_GRATE.get())));
+            () -> new GrateBlock(BlockBehaviour.Properties.copy(COPPER_GRATE.get()).isValidSpawn(ModCopperBlocks::never).isRedstoneConductor(ModCopperBlocks::never).isSuffocating(ModCopperBlocks::never).isViewBlocking(ModCopperBlocks::never)));
     public static final RegistryObject<Block> EXPOSED_COPPER_GRATE = register("exposed_copper_grate",
-            () -> new OxidizableGrateBlock(ModOxidizable.CopperOxidizableLevel.EXPOSED, BlockBehaviour.Properties.copy(COPPER_GRATE.get()).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY)));
+            () -> new OxidizableGrateBlock(ModOxidizable.CopperOxidizableLevel.EXPOSED, BlockBehaviour.Properties.copy(COPPER_GRATE.get()).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).isValidSpawn(ModCopperBlocks::never).isRedstoneConductor(ModCopperBlocks::never).isSuffocating(ModCopperBlocks::never).isViewBlocking(ModCopperBlocks::never)));
     public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_GRATE = register("waxed_exposed_copper_grate",
-            () -> new GrateBlock(BlockBehaviour.Properties.copy(EXPOSED_COPPER_GRATE.get())));
+            () -> new GrateBlock(BlockBehaviour.Properties.copy(EXPOSED_COPPER_GRATE.get()).isValidSpawn(ModCopperBlocks::never).isRedstoneConductor(ModCopperBlocks::never).isSuffocating(ModCopperBlocks::never).isViewBlocking(ModCopperBlocks::never)));
     public static final RegistryObject<Block> WEATHERED_COPPER_GRATE = register("weathered_copper_grate",
-            () -> new OxidizableGrateBlock(ModOxidizable.CopperOxidizableLevel.WEATHERED, BlockBehaviour.Properties.copy(COPPER_GRATE.get()).mapColor(MapColor.WARPED_STEM)));
+            () -> new OxidizableGrateBlock(ModOxidizable.CopperOxidizableLevel.WEATHERED, BlockBehaviour.Properties.copy(COPPER_GRATE.get()).mapColor(MapColor.WARPED_STEM).isValidSpawn(ModCopperBlocks::never).isRedstoneConductor(ModCopperBlocks::never).isSuffocating(ModCopperBlocks::never).isViewBlocking(ModCopperBlocks::never)));
     public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_GRATE = register("waxed_weathered_copper_grate",
-            () -> new GrateBlock(BlockBehaviour.Properties.copy(WEATHERED_COPPER_GRATE.get())));
+            () -> new GrateBlock(BlockBehaviour.Properties.copy(WEATHERED_COPPER_GRATE.get()).isValidSpawn(ModCopperBlocks::never).isRedstoneConductor(ModCopperBlocks::never).isSuffocating(ModCopperBlocks::never).isViewBlocking(ModCopperBlocks::never)));
     public static final RegistryObject<Block> OXIDIZED_COPPER_GRATE = register("oxidized_copper_grate",
-            () -> new OxidizableGrateBlock(ModOxidizable.CopperOxidizableLevel.OXIDIZED, BlockBehaviour.Properties.copy(COPPER_GRATE.get()).mapColor(MapColor.WARPED_NYLIUM)));
+            () -> new OxidizableGrateBlock(ModOxidizable.CopperOxidizableLevel.OXIDIZED, BlockBehaviour.Properties.copy(COPPER_GRATE.get()).mapColor(MapColor.WARPED_NYLIUM).isValidSpawn(ModCopperBlocks::never).isRedstoneConductor(ModCopperBlocks::never).isSuffocating(ModCopperBlocks::never).isViewBlocking(ModCopperBlocks::never)));
     public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_GRATE = register("waxed_oxidized_copper_grate",
-            () -> new GrateBlock(BlockBehaviour.Properties.copy(OXIDIZED_COPPER_GRATE.get())));
+            () -> new GrateBlock(BlockBehaviour.Properties.copy(OXIDIZED_COPPER_GRATE.get()).isValidSpawn(ModCopperBlocks::never).isRedstoneConductor(ModCopperBlocks::never).isSuffocating(ModCopperBlocks::never).isViewBlocking(ModCopperBlocks::never)));
 
     public static final RegistryObject<Block> COPPER_BULB = register("copper_bulb",
-            () -> new OxidizableBulbBlock(ModOxidizable.CopperOxidizableLevel.UNAFFECTED, BlockBehaviour.Properties.of().mapColor(Blocks.COPPER_BLOCK.defaultMapColor()).strength(3.0F, 6.0F).sound(ModSounds.COPPER_BULB).requiresCorrectToolForDrops().isRedstoneConductor(Blocks::never).lightLevel(litBlockEmission(15))));
+            () -> new OxidizableBulbBlock(ModOxidizable.CopperOxidizableLevel.UNAFFECTED, BlockBehaviour.Properties.of().mapColor(Blocks.COPPER_BLOCK.defaultMapColor()).strength(3.0F, 6.0F).sound(ModSounds.COPPER_BULB).requiresCorrectToolForDrops().isRedstoneConductor(ModCopperBlocks::never).lightLevel(litBlockEmission(15))));
     public static final RegistryObject<Block> WAXED_COPPER_BULB = register("waxed_copper_bulb",
-            () -> new BulbBlock(BlockBehaviour.Properties.copy(COPPER_BULB.get())));
+            () -> new BulbBlock(BlockBehaviour.Properties.copy(COPPER_BULB.get()).isRedstoneConductor(ModCopperBlocks::never).lightLevel(litBlockEmission(15))));
     public static final RegistryObject<Block> EXPOSED_COPPER_BULB = register("exposed_copper_bulb",
-            () -> new OxidizableBulbBlock(ModOxidizable.CopperOxidizableLevel.EXPOSED, BlockBehaviour.Properties.copy(COPPER_BULB.get()).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).isRedstoneConductor(Blocks::never).lightLevel(litBlockEmission(12))));
+            () -> new OxidizableBulbBlock(ModOxidizable.CopperOxidizableLevel.EXPOSED, BlockBehaviour.Properties.copy(COPPER_BULB.get()).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY).isRedstoneConductor(ModCopperBlocks::never).lightLevel(litBlockEmission(12))));
     public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_BULB = register("waxed_exposed_copper_bulb",
-            () -> new BulbBlock(BlockBehaviour.Properties.copy(EXPOSED_COPPER_BULB.get())));
+            () -> new BulbBlock(BlockBehaviour.Properties.copy(EXPOSED_COPPER_BULB.get()).isRedstoneConductor(ModCopperBlocks::never).lightLevel(litBlockEmission(12))));
     public static final RegistryObject<Block> WEATHERED_COPPER_BULB = register("weathered_copper_bulb",
-            () -> new OxidizableBulbBlock(ModOxidizable.CopperOxidizableLevel.WEATHERED, BlockBehaviour.Properties.copy(COPPER_BULB.get()).mapColor(MapColor.WARPED_STEM).isRedstoneConductor(Blocks::never).lightLevel(litBlockEmission(8))));
+            () -> new OxidizableBulbBlock(ModOxidizable.CopperOxidizableLevel.WEATHERED, BlockBehaviour.Properties.copy(COPPER_BULB.get()).mapColor(MapColor.WARPED_STEM).isRedstoneConductor(ModCopperBlocks::never).lightLevel(litBlockEmission(8))));
     public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_BULB = register("waxed_weathered_copper_bulb",
-            () -> new BulbBlock(BlockBehaviour.Properties.copy(WEATHERED_COPPER_BULB.get())));
+            () -> new BulbBlock(BlockBehaviour.Properties.copy(WEATHERED_COPPER_BULB.get()).isRedstoneConductor(ModCopperBlocks::never).lightLevel(litBlockEmission(8))));
     public static final RegistryObject<Block> OXIDIZED_COPPER_BULB = register("oxidized_copper_bulb",
-            () -> new OxidizableBulbBlock(ModOxidizable.CopperOxidizableLevel.OXIDIZED, BlockBehaviour.Properties.copy(COPPER_BULB.get()).mapColor(MapColor.WARPED_NYLIUM).isRedstoneConductor(Blocks::never).lightLevel(litBlockEmission(4))));
+            () -> new OxidizableBulbBlock(ModOxidizable.CopperOxidizableLevel.OXIDIZED, BlockBehaviour.Properties.copy(COPPER_BULB.get()).mapColor(MapColor.WARPED_NYLIUM).isRedstoneConductor(ModCopperBlocks::never).lightLevel(litBlockEmission(4))));
     public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_BULB = register("waxed_oxidized_copper_bulb",
-            () -> new BulbBlock(BlockBehaviour.Properties.copy(OXIDIZED_COPPER_BULB.get())));
-
-    private static ToIntFunction<BlockState> litBlockEmission(int pLightValue) {
-        return (state) -> state.getValue(BlockStateProperties.LIT) ? pLightValue : 0;
-    }
+            () -> new BulbBlock(BlockBehaviour.Properties.copy(OXIDIZED_COPPER_BULB.get()).isRedstoneConductor(ModCopperBlocks::never).lightLevel(litBlockEmission(4))));
 
     private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
@@ -128,5 +126,17 @@ public class ModCopperBlocks {
 
     private static <T extends Block> RegistryObject<BlockItem> registerBlockItem(String name, RegistryObject<T> block) {
         return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+    }
+
+    private static boolean never(BlockState state, BlockGetter world, BlockPos pos) {
+        return false;
+    }
+
+    private static boolean never(BlockState state, BlockGetter world, BlockPos pos, EntityType<?> type) {
+        return false;
+    }
+
+    private static ToIntFunction<BlockState> litBlockEmission(int pLightValue) {
+        return (state) -> state.getValue(BlockStateProperties.LIT) ? pLightValue : 0;
     }
 }
