@@ -42,7 +42,7 @@ public class BulbBlock extends Block {
             BlockState blockState = state;
             if (!state.getValue(POWERED)) {
                 blockState = state.cycle(LIT);
-                world.playSound(null, pos, blockState.getValue(LIT) ? ModSounds.BLOCK_COPPER_BULB_TURN_ON.get() : ModSounds.BLOCK_COPPER_BULB_TURN_OFF.get(), SoundSource.BLOCKS);
+                world.playSound(null, pos, blockState.getValue(LIT) ? ModSounds.BLOCK_COPPER_BULB_TURN_ON.get() : ModSounds.BLOCK_COPPER_BULB_TURN_OFF.get(), SoundSource.BLOCKS, 2F, 1F);
             }
             world.setBlock(pos, blockState.setValue(POWERED, bl), 3);
         }

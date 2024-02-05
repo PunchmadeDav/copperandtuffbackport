@@ -4,21 +4,27 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import xanthian.copperandtuffbackport.util.ModOxidizable;
 
 public class OxidizableDoorBlock extends DoorBlock implements ModOxidizable {
     private final CopperOxidizableLevel oxidationLevel;
 
-    public OxidizableDoorBlock(BlockSetType type, CopperOxidizableLevel oxidationLevel, BlockBehaviour.Properties settings) {
-        super(settings, type);
+    public OxidizableDoorBlock(CopperOxidizableLevel oxidationLevel, BlockBehaviour.Properties settings) {
+        super(settings);
         this.oxidationLevel = oxidationLevel;
     }
 
@@ -40,6 +46,22 @@ public class OxidizableDoorBlock extends DoorBlock implements ModOxidizable {
         } else {
             return doubleblockhalf == DoubleBlockHalf.LOWER && pFacing == Direction.DOWN && !pState.canSurvive(pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
         }
+    }
+
+    public @NotNull InteractionResult use(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer, @NotNull InteractionHand pHand, BlockHitResult pHit) {
+        pState = pState.cycle(OPEN);
+        pLevel.setBlock(pPos, pState, 10);
+        pLevel.levelEvent(pPlayer, pState.getValue(OPEN) ? this.getOpenSound() : this.getCloseSound(), pPos, 0);
+        pLevel.gameEvent(pPlayer, this.isOpen(pState) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pPos);
+        return InteractionResult.sidedSuccess(pLevel.isClientSide);
+    }
+
+    private int getCloseSound() {
+        return this.material == Material.METAL ? 1011 : 1012;
+    }
+
+    private int getOpenSound() {
+        return this.material == Material.METAL ? 1005 : 1006;
     }
 
     public @NotNull CopperOxidizableLevel getAge() {

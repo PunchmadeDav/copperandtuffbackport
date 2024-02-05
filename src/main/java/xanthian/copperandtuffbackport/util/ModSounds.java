@@ -54,7 +54,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> BLOCK_COPPER_TRAPDOOR_OPEN = registerSoundEvents("block.copper_trapdoor.open");
 
     private static RegistryObject<SoundEvent> registerSoundEvents(String name) {
-        return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Initialise.MOD_ID, name)));
+        ResourceLocation id = new ResourceLocation(Initialise.MOD_ID, name);
+        return SOUND_EVENTS.register(name, () -> new SoundEvent(id));
     }
 
     public static void register(IEventBus eventBus) {
