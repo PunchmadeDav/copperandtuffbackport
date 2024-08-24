@@ -2,10 +2,8 @@ package xanthian.copperandtuffbackport;
 
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -29,14 +27,14 @@ public class Initialise {
 
         ModSounds.SOUND_EVENTS.register(modEventBus);
 
+        modEventBus.addListener(this::clientSetup);
+
         MinecraftForge.EVENT_BUS.register(this);
+
 
     }
 
-    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
+    private void clientSetup(final FMLClientSetupEvent event) {
 
             ItemBlockRenderTypes.setRenderLayer(ModCopperBlocks.COPPER_DOOR.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModCopperBlocks.COPPER_GRATE.get(), RenderType.translucent());
@@ -62,6 +60,6 @@ public class Initialise {
             ItemBlockRenderTypes.setRenderLayer(ModCopperBlocks.WAXED_WEATHERED_COPPER_DOOR.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModCopperBlocks.WAXED_WEATHERED_COPPER_GRATE.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModCopperBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get(), RenderType.translucent());
-        }
+
     }
 }

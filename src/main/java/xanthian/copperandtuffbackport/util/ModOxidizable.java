@@ -76,6 +76,9 @@ public interface ModOxidizable extends ChangeOverTimeBlock<ModOxidizable.CopperO
         UNAFFECTED,
         EXPOSED,
         WEATHERED,
-        OXIDIZED
+        OXIDIZED;
+
+        CopperOxidizableLevel() {
+        }
     }
 }

@@ -2,11 +2,12 @@ package xanthian.copperandtuffbackport.blocks.custom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import xanthian.copperandtuffbackport.util.ModOxidizable;
+
+import java.util.Random;
 
 public class OxidizableGrateBlock extends GrateBlock implements ModOxidizable {
 
@@ -17,7 +18,7 @@ public class OxidizableGrateBlock extends GrateBlock implements ModOxidizable {
         this.oxidationLevel = oxidationLevel;
     }
 
-    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull RandomSource random) {
+    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull Random random) {
         this.onRandomTick(state, world, pos, random);
     }
 

@@ -2,7 +2,6 @@ package xanthian.copperandtuffbackport.blocks.custom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -14,6 +13,8 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import xanthian.copperandtuffbackport.util.ModOxidizable;
+
+import java.util.Random;
 
 public class OxidizableTrapdoorBlock extends TrapDoorBlock implements ModOxidizable {
 
@@ -35,7 +36,7 @@ public class OxidizableTrapdoorBlock extends TrapDoorBlock implements ModOxidiza
         return InteractionResult.sidedSuccess(pLevel.isClientSide);
     }
 
-    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull RandomSource random) {
+    public void randomTick(@NotNull BlockState state, @NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull Random random) {
         this.onRandomTick(state, world, pos, random);
     }
 

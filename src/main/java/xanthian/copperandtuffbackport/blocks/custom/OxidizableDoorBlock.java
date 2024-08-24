@@ -3,7 +3,6 @@ package xanthian.copperandtuffbackport.blocks.custom;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -20,6 +19,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import xanthian.copperandtuffbackport.util.ModOxidizable;
 
+import java.util.Random;
+
 public class OxidizableDoorBlock extends DoorBlock implements ModOxidizable {
     private final CopperOxidizableLevel oxidationLevel;
 
@@ -28,7 +29,7 @@ public class OxidizableDoorBlock extends DoorBlock implements ModOxidizable {
         this.oxidationLevel = oxidationLevel;
     }
 
-    public void randomTick(BlockState state, @NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull RandomSource random) {
+    public void randomTick(BlockState state, @NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull Random random) {
         if (state.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER) {
             this.onRandomTick(state, world, pos, random);
         }
