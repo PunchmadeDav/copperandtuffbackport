@@ -59,22 +59,6 @@ public class ModItemGroup {
             content.addAfter(Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB, ModCopperBlocks.WAXED_OXIDIZED_COPPER_DOOR);
             content.addAfter(ModCopperBlocks.WAXED_OXIDIZED_COPPER_DOOR, ModCopperBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR);
             content.addAfter(ModCopperBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR, ModCopperBlocks.WAXED_OXIDIZED_COPPER_BULB);
-
-            content.addAfter(Blocks.REINFORCED_DEEPSLATE, Blocks.TUFF);
-            content.addAfter(Blocks.TUFF, ModTuffBlocks.TUFF_STAIRS);
-            content.addAfter(ModTuffBlocks.TUFF_STAIRS, ModTuffBlocks.TUFF_SLAB);
-            content.addAfter(ModTuffBlocks.TUFF_SLAB, ModTuffBlocks.TUFF_WALL);
-            content.addAfter(ModTuffBlocks.TUFF_WALL, ModTuffBlocks.CHISELED_TUFF);
-            content.addAfter(ModTuffBlocks.CHISELED_TUFF, ModTuffBlocks.POLISHED_TUFF);
-            content.addAfter(ModTuffBlocks.POLISHED_TUFF, ModTuffBlocks.POLISHED_TUFF_STAIRS);
-            content.addAfter(ModTuffBlocks.POLISHED_TUFF_STAIRS, ModTuffBlocks.POLISHED_TUFF_SLAB);
-            content.addAfter(ModTuffBlocks.POLISHED_TUFF_SLAB, ModTuffBlocks.POLISHED_TUFF_WALL);
-            content.addAfter(ModTuffBlocks.POLISHED_TUFF_WALL, ModTuffBlocks.TUFF_BRICKS);
-            content.addAfter(ModTuffBlocks.TUFF_BRICKS, ModTuffBlocks.TUFF_BRICK_STAIRS);
-            content.addAfter(ModTuffBlocks.TUFF_BRICK_STAIRS, ModTuffBlocks.TUFF_BRICK_SLAB);
-            content.addAfter(ModTuffBlocks.TUFF_BRICK_SLAB, ModTuffBlocks.TUFF_BRICK_WALL);
-            content.addAfter(ModTuffBlocks.TUFF_BRICK_WALL, ModTuffBlocks.CHISELED_TUFF_BRICKS);
-
         });
     }
 
