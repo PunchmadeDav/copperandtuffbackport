@@ -9,17 +9,6 @@ import xanthian.copperandtuffbackport.Initialise;
 
 public class ModSounds {
 
-    public static final SoundEvent BLOCK_TUFF_BRICKS_BREAK = register("block.tuff_bricks.break");
-    public static final SoundEvent BLOCK_TUFF_BRICKS_FALL = register("block.tuff_bricks.fall");
-    public static final SoundEvent BLOCK_TUFF_BRICKS_HIT = register("block.tuff_bricks.hit");
-    public static final SoundEvent BLOCK_TUFF_BRICKS_PLACE = register("block.tuff_bricks.place");
-    public static final SoundEvent BLOCK_TUFF_BRICKS_STEP = register("block.tuff_bricks.step");
-    public static final SoundEvent BLOCK_POLISHED_TUFF_BREAK = register("block.polished_tuff.break");
-    public static final SoundEvent BLOCK_POLISHED_TUFF_FALL = register("block.polished_tuff.fall");
-    public static final SoundEvent BLOCK_POLISHED_TUFF_HIT = register("block.polished_tuff.hit");
-    public static final SoundEvent BLOCK_POLISHED_TUFF_PLACE = register("block.polished_tuff.place");
-    public static final SoundEvent BLOCK_POLISHED_TUFF_STEP = register("block.polished_tuff.step");
-
     public static final SoundEvent BLOCK_COPPER_BULB_BREAK = register("block.copper_bulb.break");
     public static final SoundEvent BLOCK_COPPER_BULB_STEP = register("block.copper_bulb.step");
     public static final SoundEvent BLOCK_COPPER_BULB_PLACE = register("block.copper_bulb.place");
@@ -39,14 +28,6 @@ public class ModSounds {
 
     public static final SoundEvent BLOCK_COPPER_TRAPDOOR_CLOSE = register("block.copper_trapdoor.close");
     public static final SoundEvent BLOCK_COPPER_TRAPDOOR_OPEN = register("block.copper_trapdoor.open");
-
-    public static final BlockSoundGroup TUFF_BRICKS = new BlockSoundGroup(1.0F, 1.0F,
-            ModSounds.BLOCK_TUFF_BRICKS_BREAK, ModSounds.BLOCK_TUFF_BRICKS_STEP, ModSounds.BLOCK_TUFF_BRICKS_PLACE,
-            ModSounds.BLOCK_TUFF_BRICKS_HIT, ModSounds.BLOCK_TUFF_BRICKS_FALL);
-
-    public static final BlockSoundGroup POLISHED_TUFF = new BlockSoundGroup(1.0F, 1.0F,
-            ModSounds.BLOCK_POLISHED_TUFF_BREAK, ModSounds.BLOCK_POLISHED_TUFF_STEP, ModSounds.BLOCK_POLISHED_TUFF_PLACE,
-            ModSounds.BLOCK_POLISHED_TUFF_HIT, ModSounds.BLOCK_POLISHED_TUFF_FALL);
 
     public static final BlockSoundGroup COPPER_BULB = new BlockSoundGroup(1.0F, 1.0F,
             ModSounds.BLOCK_COPPER_BULB_BREAK, ModSounds.BLOCK_COPPER_BULB_STEP, ModSounds.BLOCK_COPPER_BULB_PLACE,
