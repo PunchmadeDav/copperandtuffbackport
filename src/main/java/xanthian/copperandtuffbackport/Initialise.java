@@ -15,7 +15,6 @@ public class Initialise implements ModInitializer {
     public void onInitialize() {
 
         ModCopperBlocks.registerBlocks();
-        ModTuffBlocks.registerBlocks();
 
         ModItemGroup.addToBuildingBlocks();
         ModItemGroup.addToRedstoneBlocks();
